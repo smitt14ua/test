@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  nginx:
+    build:
+      context: ./docker/nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www/symfony
+      # - /var/www/symfony/docker
+      # - /var/www/symfony/vendor
+    depends_on:
+      - php-fpm
+  php-fpm:
+    build:
+      context: ./docker/php-fpm
+    volumes:
+      - ./:/var/www/symfony
+      # - /var/www/symfony/docker
+      # - ./vendor:/var/www/symfony/vendor:delegated
+      # - /var/www/symfony/vendor
+  mysql:
+    image: library/mysql:latest
+    environment:
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: symfony
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+    - "3306:3306"
+    volumes:
+    - ./docker/mysql:/var/lib/mysql

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Новости{% endblock %}
+
+{% block body %}
+    <h2 class="mt-3">Новости</h2>
+    <nav class="d-flex align-items-baseline justify-content-between mt-3">
+        <div>
+            <span class="text-muted">Всего {{ newsCollection|length }} новостей</span>
+        </div>
+        <div>
+            <a class="btn btn-sm btn-primary" href="#" role="button">Добавить</a>
+        </div>
+    </nav>
+    {% for news in newsCollection %}
+        <acticle class="mt-3">
+            <h3>
+                <a href="{{ url('news_view', {id: news.id}) }}">{{ news.title }}</a>
+            </h3>
+            <small>{{ news.createdAt|format_datetime('medium', 'short') }}</small>
+            <p>{{ news.text }}</p>
+        </acticle>
+    {% else %}
+        <div>
+            <h3>Новостей не найдено</h3>
+        </div>
+    {% endfor %}
+{% endblock %}
