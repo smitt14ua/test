@@ -1,4 +1,4 @@
-FROM library/php:fpm-7.4.13
+FROM library/php:7.4.13-fpm
 
 RUN apt-get update && apt-get install -y \
     curl \
